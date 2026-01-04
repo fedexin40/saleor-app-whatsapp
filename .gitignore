@@ -49,3 +49,4 @@ generated/
 .sentryclirc
 
 .env
+/src/generated/prisma

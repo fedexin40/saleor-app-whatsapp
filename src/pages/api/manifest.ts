@@ -3,6 +3,8 @@ import { AppManifest } from "@saleor/app-sdk/types";
 
 import packageJson from "../../../package.json";
 import { checkoutFullyPaidWebhook } from "./webhooks/checkout-fully-paid";
+import { orderFulfilledWebhook } from "./webhooks/order-fulfilled";
+
 
 /**
  * App SDK helps with the valid Saleor App Manifest creation. Read more:
@@ -19,7 +21,7 @@ export default createManifestHandler({
     const apiBaseURL = process.env.APP_API_BASE_URL ?? appBaseUrl;
 
     const manifest: AppManifest = {
-      name: 'Checkout Fully Paid',
+      name: 'Saleor app whatsapp',
       tokenTargetUrl: `${apiBaseURL}/api/register`,
       appUrl: iframeBaseUrl,
       /**
@@ -46,7 +48,10 @@ export default createManifestHandler({
        * Easiest way to create webhook is to use app-sdk
        * https://github.com/saleor/saleor-app-sdk/blob/main/docs/saleor-webhook.md
        */
-      webhooks: [checkoutFullyPaidWebhook.getWebhookManifest(apiBaseURL)],
+      webhooks: [
+        checkoutFullyPaidWebhook.getWebhookManifest(apiBaseURL),
+        orderFulfilledWebhook.getWebhookManifest(apiBaseURL)
+      ],
       /**
        * Optionally, extend Dashboard with custom UIs
        * https://docs.saleor.io/docs/3.x/developer/extending/apps/extending-dashboard-with-apps
